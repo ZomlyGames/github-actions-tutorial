@@ -1,0 +1,17 @@
+name: Hello World
+on: [push]
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+
+  steps:
+    - name: Say hello
+      run: echo "Hello, World!"
+
+    - name: Show date
+      run: date
+
+    - name: Show directory
+      run: |
+          pwd
+          ls -la
