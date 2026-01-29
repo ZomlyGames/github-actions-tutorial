@@ -1,0 +1,28 @@
+name: Environment Variables
+
+on: [push]
+
+env:
+  GLOBAL_VAR: "I'm global"
+
+jobs:
+  show-vars:
+    runs-on: ubuntu-latest
+    env:
+      JOB_VAR: "I'm job-level"
+
+    steps:
+      - name: Show environment variables
+        env:
+          STEP_VAR: "I'm step-level"
+        run: |
+          echo "Global: $GLOBAL_VAR"
+          echo "Job: $JOB_VAR"
+          echo "Step: $STEP_VAR"
+
+      - name: Show GitHub context
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "SHA: ${{ github.sha }}"
+          echo "Ref: ${{ github.ref }}"
