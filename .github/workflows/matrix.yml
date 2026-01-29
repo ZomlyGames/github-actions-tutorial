@@ -1,0 +1,33 @@
+name: Matrix Strategy
+
+on: [push]
+
+jobs:
+  test-multiple-versions:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [16, 18, 20]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Show environment
+        run: |
+          echo "🖥 OS: ${{ matrix.os }}"
+          echo "📦 Node version: ${{ matrix.node-version }}"
+          node --version
+          npm --version
+
+      - name: Create simple test
+        run: |
+          echo "console.log('Testing on Node ${{ matrix.node-version }}');" > test.js
+          node test.js
