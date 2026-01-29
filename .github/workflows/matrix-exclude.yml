@@ -1,0 +1,23 @@
+name: Matrix with Exclude
+
+on: [push]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [16, 18, 20]
+        exclude:
+          # No probar Node 16 en Windows
+          - os: windows-latest
+            node-version: 16
+          # No probar Node 20 en macOS
+          - os: macos-latest
+            node-version: 20
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Test combination
+        run: echo "Testing Node ${{ matrix.node-version }} on ${{ matrix.os }}"
