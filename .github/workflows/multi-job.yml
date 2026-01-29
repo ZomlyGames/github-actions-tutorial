@@ -1,0 +1,23 @@
+name: Multi-Job Workflow
+
+on: [push]
+
+jobs:
+  first-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step in first job
+        run: echo "This is the first job"
+
+  second-job:
+    needs: first-job # Espera a que first-job termine
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step in second job
+        run: echo "This runs after first-job"
+
+  parallel-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step in parallel job
+        run: echo "This runs in parallel with first-job"
