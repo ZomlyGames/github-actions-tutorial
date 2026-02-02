@@ -1,0 +1,21 @@
+name: Multi-os Workflow
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  multi-os-job:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Mostrar sistema operativo
+        run: echo "Running on ${{ matrix.os }}"
+
+      - name: Info del sistema
+        run: |
+          uname -a || ver
